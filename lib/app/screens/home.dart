@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/app/widgets/task.dart';
-
-import '../model/task.dart';
+import 'package:flutter_project/database/lista.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,7 +13,6 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: .stretch,
         mainAxisAlignment: .start,
         children: [
-          Padding(padding: EdgeInsetsGeometry.all(12), child: Divider()),
           Card(
             color: Theme.of(context).colorScheme.surfaceContainer,
             child: Padding(
@@ -22,20 +20,21 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TaskCard.fromTask(
-                    task: Task.create(
-                      "Tarefa 1",
-                      "Primeira Tarefa",
-                      DateTime.now(),
-                    ),
-                  ),
-                ],
+                children: [TaskCard.fromTask(task: taskList[1])],
               ),
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+class UrgentTasks extends StatelessWidget {
+  const UrgentTasks({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column();
   }
 }

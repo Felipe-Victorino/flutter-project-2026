@@ -9,22 +9,28 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
-  static const Color seedColor = Colors.indigo;
+  static const Color seedColor = Colors.pink;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Test App',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
 
       theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: .fromSeed(seedColor: seedColor),
-      ),
+        brightness: .light,
 
-      darkTheme: ThemeData.dark(),
-      home: Home(),
+        useMaterial3: true,
+        colorScheme: .fromSeed(seedColor: seedColor, brightness: .light),
+      ),
+      darkTheme: ThemeData(
+        brightness: .dark,
+        useMaterial3: true,
+        colorScheme: .fromSeed(seedColor: seedColor, brightness: .dark),
+      ),
+      themeMode: ThemeMode.system,
+
+      home: const Home(),
     );
   }
 }

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/app/model/task.dart';
 
-List<Task> taskList = List.empty(growable: true);
-List<Task> debugTaskList = [
-  Task.create("Tarefa 1", "Primeira Tarefa", DateTime.now()),
-  Task.create("Tarefa 2", "Segunda Tarefa", DateTime.now()),
-  Task.create("Tarefa 3", "Terceira Tarefa", DateTime.now()),
-];
-
 class TaskCard extends StatelessWidget {
   final Task task;
 
@@ -26,6 +19,7 @@ class TaskCard extends StatelessWidget {
               task.title.toString(),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Divider(),
             Text(task.description.toString()),
             Text(task.createTime.toString()),
             Text(task.endTime.toString()),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../database/lista.dart';
 import '../widgets/task.dart';
 
 class TaskPage extends StatefulWidget {
@@ -11,30 +12,27 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   int itemCount = 3;
-  List<TaskCard> taskList = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsGeometry.all(42),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text("Tarefas", style: Theme.of(context).textTheme.headlineLarge),
-          Padding(padding: EdgeInsetsGeometry.all(12), child: Divider()),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  tileColor: Theme.of(context).cardColor,
-                  minTileHeight: 50,
-                );
-              },
+
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemCount: taskList.length,
+                itemBuilder: (context, index) {
+                  return TaskCard.fromTask(task: taskList[index]);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

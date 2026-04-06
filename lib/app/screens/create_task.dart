@@ -5,7 +5,7 @@ class NewTaskPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(child: NewTaskForm());
+    return Scaffold(appBar: AppBar(), body: NewTaskForm());
   }
 }
 
@@ -37,13 +37,17 @@ class _NewTaskForm extends State<NewTaskForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 12,
           children: <Widget>[
             Text(
               "Nova Tarefa",
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             TextFormField(
-              decoration: const InputDecoration(hintText: 'Título da tarefa'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Título da tarefa',
+              ),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Insira algum texto';
@@ -52,9 +56,13 @@ class _NewTaskForm extends State<NewTaskForm> {
               },
             ),
             TextFormField(
+              maxLines: 7,
+
               decoration: const InputDecoration(
+                border: OutlineInputBorder(),
                 hintText: 'Descrição da tarefa',
               ),
+
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Insira algum texto';
@@ -69,7 +77,15 @@ class _NewTaskForm extends State<NewTaskForm> {
                   onPressed: _submitTask,
                   child: Text("Criar Tarefa"),
                 ),
-                ElevatedButton(onPressed: _exit, child: Text("Cancelar")),
+                ElevatedButton(
+                  onPressed: _exit,
+                  child: Text("Cancelar"),
+                  style: ButtonStyle(
+                    foregroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

@@ -31,20 +31,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor,
-
-        title: Text(
-          'ToDoRe',
-          style: TextStyle(
-            color: Theme.of(context).navigationBarTheme.surfaceTintColor,
-          ),
-        ),
+        //backgroundColor: Theme.of(context).colorScheme.primary,
+        //foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        title: Text('ToDoRe'),
       ),
       drawer: NavigationDrawer(
         selectedIndex: _selectedIndex,
         onDestinationSelected: handleScreenChange,
+
         children: [
           Padding(
             padding: EdgeInsetsGeometry.all(12),
@@ -54,29 +49,35 @@ class _HomeState extends State<Home> {
           NavigationDrawerDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
-            label: Text("Home"),
+            label: Text("Tela Inicial"),
           ),
           NavigationDrawerDestination(
             icon: Icon(Icons.check_circle_outline),
             selectedIcon: Icon(Icons.check_circle),
-            label: Text("Tasks"),
+            label: Text("Tarefas"),
           ),
           NavigationDrawerDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
-            label: Text("Settings"),
+            label: Text("COnfigurações"),
           ),
         ],
       ),
       body: _pages[_selectedIndex],
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (context) => const NewTaskPage()),
-          );
-        },
-      ),
+      floatingActionButton: _selectedIndex != 2
+          ? FloatingActionButton(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute<void>(
+                    builder: (context) => const NewTaskPage(),
+                  ),
+                );
+              },
+            )
+          : null,
     );
   }
 }
