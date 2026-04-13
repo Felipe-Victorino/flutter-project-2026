@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: .stretch,
         mainAxisAlignment: .start,
         children: [
+          Text("Tarefas próximas"),
           Card(
             color: Theme.of(context).colorScheme.surfaceContainer,
             child: Padding(
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [TaskCard.fromTask(task: taskList[1])],
+                children: [TaskCard.fromTask(task: taskList[0])],
               ),
             ),
           ),

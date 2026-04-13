@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../database/dao.dart';
 import '../widgets/task.dart';
 
-class TaskPage extends StatefulWidget {
-  const TaskPage({super.key});
+class CompletedPage extends StatefulWidget {
+  const CompletedPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TaskPageState();
+  State<StatefulWidget> createState() => _CompletedPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _CompletedPageState extends State<CompletedPage> {
   final Dao dao = Dao();
 
   @override
@@ -23,14 +23,12 @@ class _TaskPageState extends State<TaskPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            child: dao.getIncompleted().isEmpty
+            child: dao.getCompleted().isEmpty
                 ? EmptyList()
                 : ListView.builder(
-                    itemCount: dao.getIncompleted().length,
+                    itemCount: dao.getCompleted().length,
                     itemBuilder: (context, index) {
-                      return TaskCard.fromTask(
-                        task: dao.getIncompleted()[index],
-                      );
+                      return TaskCard.fromTask(task: dao.getCompleted()[index]);
                     },
                   ),
           ),

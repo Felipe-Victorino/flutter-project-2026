@@ -70,21 +70,29 @@ class _NewTaskForm extends State<NewTaskForm> {
                 return null;
               },
             ),
+            InputDatePickerFormField(
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: _submitTask,
+                  style: ButtonStyle(
+                    foregroundColor: WidgetStatePropertyAll(Colors.green),
+                  ),
                   child: Text("Criar Tarefa"),
                 ),
                 ElevatedButton(
                   onPressed: _exit,
-                  child: Text("Cancelar"),
                   style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(
                       Theme.of(context).colorScheme.error,
                     ),
                   ),
+                  child: Text("Cancelar"),
                 ),
               ],
             ),
