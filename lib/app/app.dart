@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/app/screens/completed.dart';
 import 'package:flutter_project/app/screens/create_task.dart';
 
 import 'screens/home.dart';
@@ -18,6 +19,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _pages = [
     const HomePage(),
     const TaskPage(),
+    const CompletedPage(),
     const SettingsPage(),
   ];
 
@@ -57,9 +59,14 @@ class _HomeState extends State<Home> {
             label: Text("Tarefas"),
           ),
           NavigationDrawerDestination(
+            icon: Icon(Icons.archive_outlined),
+            selectedIcon: Icon(Icons.archive),
+            label: Text("Tarefas Completas"),
+          ),
+          NavigationDrawerDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
-            label: Text("COnfigurações"),
+            label: Text("Configurações"),
           ),
         ],
       ),
