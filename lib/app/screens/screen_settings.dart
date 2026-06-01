@@ -21,11 +21,7 @@ class SettingsPage extends StatelessWidget {
           Card(
             child: Padding(
               padding: EdgeInsetsGeometry.all(12),
-              child: Column(
-                children: [
-                  Row(children: [Text("Modo Escuro:"), ThemeSwitch()]),
-                ],
-              ),
+              child: Column(children: [ThemeSwitch()]),
             ),
           ),
         ],
@@ -46,8 +42,9 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    return Switch(
+    return SwitchListTile(
       value: value,
+      title: Text("Modo Escuro:"),
       onChanged: (bool value) {
         setState(() {
           this.value = value;

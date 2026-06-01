@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'app/app.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  sqfliteFfiInit();
+
   runApp(App());
 }
 
@@ -17,7 +21,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  ThemeMode _theme = ThemeMode.system;
+  ThemeMode _theme = ThemeMode.light;
 
   void changeTheme(ThemeMode theme) {
     setState(() {
@@ -41,7 +45,7 @@ class _AppState extends State<App> {
   }
 }
 
-const Color seedColor = Colors.red;
+const Color seedColor = Colors.indigo;
 final ThemeData darkTheme = ThemeData(
   brightness: .dark,
   useMaterial3: true,
