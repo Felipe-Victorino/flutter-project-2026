@@ -39,9 +39,7 @@ class _CategoryCardState extends State<CategoryCard> {
               runAlignment: .spaceBetween,
               children: [
                 ElevatedButton.icon(
-                  // 1. Make the onPressed handler async
                   onPressed: () async {
-                    // 2. Await the navigation route completion
                     await Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute<void>(
                         builder: (context) =>
@@ -49,7 +47,6 @@ class _CategoryCardState extends State<CategoryCard> {
                       ),
                     );
 
-                    // 3. This will now execute ONLY after EditCategoryPage has completely closed
                     widget.callback();
                   },
                   label: const Text("Editar"),

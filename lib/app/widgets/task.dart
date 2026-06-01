@@ -73,40 +73,23 @@ class _TaskCardState extends State<TaskCard> {
               Text("Date of creation: ${widget.task.createTime})"),
               Text("Date of end: ${widget.task.endTime}"),
               Wrap(
-                children: [
-                  SizedBox(
-                    height: 50,
-                    child: ListView.builder(
-                      itemCount: widget.task.categories?.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return ActionChip.elevated(
-                          label: Text(
-                            widget.task.categories![index].name,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight(900),
-                            ),
-                          ),
-                          onPressed: () {},
-                        );
-                      },
+                spacing: 8.0,
+                runSpacing: 4.0,
+                children: (widget.task.categories ?? []).map((category) {
+                  return InputChip(
+                    label: Text(
+                      category.name,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight(700),
+                      ),
                     ),
-                  ),
-                ],
+                    onPressed: () {},
+                    onDeleted: () {},
+                  );
+                }).toList(),
               ),
 
-              /*FutureBuilder(
-                future: category,
-                builder: (context, snapshot) {
-                  return snapshot.hasData
-                      ? ActionChip.elevated(
-                          label: Text(snapshot.data!.name),
-                          onPressed: () {},
-                        )
-                      : ActionChip.elevated(label: const Text("No category"));
-                },
-              ),*/
               Wrap(
                 direction: Axis.horizontal,
                 runAlignment: WrapAlignment.center,
@@ -181,6 +164,11 @@ class _TaskCardState extends State<TaskCard> {
                     },
                     icon: Icon(_taskButtonIcon),
                     label: Text(_taskButtonLabel),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: null,
+                    label: Text('Editar'),
+                    icon: Icon(Icons.edit),
                   ),
                 ],
               ),
