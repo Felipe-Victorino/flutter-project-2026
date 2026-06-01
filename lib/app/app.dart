@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/app/screens/completed.dart';
 import 'package:flutter_project/app/screens/create_task.dart';
+import 'package:flutter_project/app/screens/screen_completed_list.dart';
 
-import 'screens/home.dart';
-import 'screens/settings.dart';
-import 'screens/tasks.dart';
+import 'screens/screen_home.dart';
+import 'screens/screen_settings.dart';
+import 'screens/screen_tasks_list.dart';
 import 'widgets/tile_logo.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    const HomePage(),
+    HomePage(),
     const TaskPage(),
     const CompletedPage(),
     const SettingsPage(),
@@ -71,11 +71,11 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: _pages[_selectedIndex],
-      floatingActionButton: _selectedIndex != 2
-          ? FloatingActionButton(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              child: Icon(Icons.add),
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton.extended(
+              label: Text("Add"),
+
+              icon: Icon(Icons.add),
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute<void>(
