@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "/home/fflv/Codes/Dart/flutter_project/linux"
+  "cmake.sourceDirectory": "/home/fflv/Codes/Dart/flutter_project/linux",
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }
