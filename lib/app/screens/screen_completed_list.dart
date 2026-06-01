@@ -31,14 +31,14 @@ class _CompletedPageState extends State<CompletedPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.all(42),
+      padding: EdgeInsetsGeometry.all(28),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           FutureBuilder(
-            future: service.getCompleteTasks(),
+            future: _tasklist,
             builder: (context, snapshot) {
               return Expanded(
                 child: snapshot.data == null
