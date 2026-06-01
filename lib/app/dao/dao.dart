@@ -1,7 +1,11 @@
-import '../model/task.dart';
+abstract class Dao<T> {
+  Future<int> insert(T t);
 
-class TaskDao {
-  final db = await database;
+  Future<List<T>?> getAll();
 
-  Future<void> insertTask(Task task) async {}
+  Future<T?> getById(int id);
+
+  Future<void> update(T t);
+
+  Future<void> remove(int id);
 }
