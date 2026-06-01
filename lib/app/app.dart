@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/app/screens/create_task.dart';
+import 'package:flutter_project/app/screens/screen_category_list.dart';
 import 'package:flutter_project/app/screens/screen_completed_list.dart';
 
 import 'screens/screen_home.dart';
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> {
     HomePage(),
     const TaskPage(),
     const CompletedPage(),
+    const CategoryPage(),
     const SettingsPage(),
   ];
 
@@ -62,6 +64,11 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.archive_outlined),
             selectedIcon: Icon(Icons.archive),
             label: Text("Tarefas Completas"),
+          ),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.category_outlined),
+            selectedIcon: Icon(Icons.category),
+            label: Text("Categorias"),
           ),
           NavigationDrawerDestination(
             icon: Icon(Icons.settings_outlined),
