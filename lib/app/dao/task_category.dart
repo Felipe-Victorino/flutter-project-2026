@@ -30,7 +30,7 @@ class TaskCategoryDao {
     final List<Map<String, Object?>> maps = await db!.rawQuery(
       '''
     SELECT t.*
-    FROM tasks c
+    FROM tasks t
     INNER JOIN taskcategories tc ON t.id = tc.task_id
     WHERE tc.category_id = ?
         ''',
