@@ -14,27 +14,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<TaskTable?>? urgentTask;
   final TaskService service = TaskService();
+
+  void _refreshList() {
+    setState(() {
+      urgentTask = service.getTaskCloserToExpire();
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    print("Starting home");
+    _refreshList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: service.getTaskCloserToExpire(),
-      builder: (context, AsyncSnapshot<TaskTable?> snapshot) {
-        return Padding(
-          padding: EdgeInsetsGeometry.all(42),
-          child: Column(
-            spacing: 12,
-            crossAxisAlignment: .stretch,
-            mainAxisAlignment: .start,
-            children: [
-              Text("Tarefas próximas"),
-              Card(
+    return Padding(
+      padding: EdgeInsetsGeometry.all(28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 12,
+        crossAxisAlignment: .stretch,
+        mainAxisAlignment: .start,
+        children: [
+          Text("Tarefas próximas"),
+          FutureBuilder(
+            future: urgentTask,
+            builder: (context, snapshot) {
+              return Card(
                 color: Theme.of(context).colorScheme.surfaceContainer,
                 child: Padding(
                   padding: EdgeInsetsGeometry.all(12),
@@ -42,45 +52,45 @@ class _HomePageState extends State<HomePage> {
                       ? EmptyList()
                       : TaskCard.fromTask(
                           task: snapshot.data!,
-                          callback: () => {},
+                          callback: _refreshList,
                         ),
                 ),
-              ),
-              Wrap(
-                spacing: 8,
-                direction: Axis.horizontal,
-                runAlignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) => const NewTaskPage(),
-                        ),
-                      );
-                    },
-                    style: ButtonStyle(
-                      foregroundColor: WidgetStatePropertyAll(Colors.green),
+              );
+            },
+          ),
+
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            direction: Axis.horizontal,
+            runAlignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const NewTaskPage(),
                     ),
-                    child: Text("Criar Tarefa nova"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute<void>(
-                          builder: (context) => const CreateCategoryPage(),
-                        ),
-                      );
-                    },
-                    child: Text("Criar Categoria nova"),
-                  ),
-                ],
+                  );
+                },
+
+                child: Text("Criar Tarefa nova"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const CreateCategoryPage(),
+                    ),
+                  );
+                },
+                child: Text("Criar Categoria nova"),
               ),
             ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
