@@ -31,7 +31,7 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.all(42),
+      padding: EdgeInsetsGeometry.all(28),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
