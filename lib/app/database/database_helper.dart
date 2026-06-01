@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
@@ -21,6 +23,11 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     DatabaseFactory factory = databaseFactoryFfi;
+
+    if (kIsWeb) {
+      factory = databaseFactoryFfiWeb;
+    }
+
     final appDir = await getApplicationDocumentsDirectory();
     final String dbPath = path.join(appDir.path, 'todore');
     await Directory(dbPath).create(recursive: true);
