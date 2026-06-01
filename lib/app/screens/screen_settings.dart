@@ -7,7 +7,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.all(42),
+      padding: EdgeInsetsGeometry.all(28),
       child: Column(
         mainAxisAlignment: .start,
         crossAxisAlignment: .stretch,
