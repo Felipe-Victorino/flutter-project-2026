@@ -2,7 +2,7 @@ import 'package:flutter_project/app/model/category.dart';
 import 'package:flutter_project/app/model/task.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import '../database/database_helper.dart';
+import '../database/database.dart';
 
 class TaskCategoryDao {
   TaskCategoryDao();

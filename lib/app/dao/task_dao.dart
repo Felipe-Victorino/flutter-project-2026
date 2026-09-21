@@ -1,7 +1,7 @@
 import 'package:flutter_project/app/dao/task_category.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import '../database/database_helper.dart';
+import '../database/database.dart';
 import '../model/task.dart';
 import 'dao.dart';
 

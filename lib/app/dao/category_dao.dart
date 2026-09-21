@@ -1,6 +1,6 @@
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import '../database/database_helper.dart';
+import '../database/database.dart';
 import '../model/category.dart';
 import 'dao.dart';
 
