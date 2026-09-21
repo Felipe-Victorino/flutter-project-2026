@@ -92,10 +92,42 @@ class _NewCategoryState extends State<NewCategory> {
                   style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(Colors.green),
                   ),
-                  child: Text("Criar Tarefa"),
+                  child: Text("Criar Categoria"),
                 ),
                 ElevatedButton(
-                  onPressed: _cancel,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Cancelling task"),
+                          content: const SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(
+                                  'You are cancelling the creating of this category, this action will undo all progress and cannot be recovered,',
+                                ),
+                                Text('Are you sure you want to return?'),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _cancel();
+                              },
+                              child: const Text("Yes, take me back"),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text("No, do not delete it"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(
                       Theme.of(context).colorScheme.error,

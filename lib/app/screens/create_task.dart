@@ -246,13 +246,45 @@ class _NewTaskForm extends State<NewTaskForm> {
                   child: Text("Criar Tarefa"),
                 ),
                 ElevatedButton(
-                  onPressed: _exit,
                   style: ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll(
                       Theme.of(context).colorScheme.error,
                     ),
                   ),
                   child: Text("Cancelar"),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Cancelling task"),
+                          content: const SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text(
+                                  'You are cancelling the crating of this task, this action will undo all progress and cannot be recovered,',
+                                ),
+                                Text('Are you sure you want to return?'),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _exit();
+                              },
+                              child: const Text("Yes, take me back"),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text("No, do not delete it"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             ),
