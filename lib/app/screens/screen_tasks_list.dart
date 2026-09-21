@@ -3,6 +3,7 @@ import 'package:flutter_project/app/service/task_service.dart';
 
 import '../model/task.dart';
 import '../widgets/task.dart';
+import 'create_task.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -36,7 +37,20 @@ class _TaskPageState extends State<TaskPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 12,
         children: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const NewTaskPage(),
+                ),
+              );
+              refreshList();
+            },
+
+            child: Text("Criar Tarefa nova"),
+          ),
           FutureBuilder(
             future: _tasklist,
             builder: (context, snapshot) {
