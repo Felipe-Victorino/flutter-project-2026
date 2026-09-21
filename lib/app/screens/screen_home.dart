@@ -59,11 +59,11 @@ class _HomePageState extends State<HomePage> {
             },
           ),
 
-          Row(
+          Wrap(
             spacing: 8,
-
-            mainAxisAlignment: .spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            runSpacing: 8,
+            runAlignment: .spaceEvenly,
+            crossAxisAlignment: .center,
             children: [
               ElevatedButton(
                 onPressed: () {
