@@ -95,6 +95,7 @@ class _CategoryCardState extends State<CategoryCard> {
                         );
                       },
                     );
+                    widget.callback();
                   },
                   label: Text("Remover"),
                   icon: Icon(Icons.remove_circle),
