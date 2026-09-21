@@ -1,11 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'app/app.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(App());
 }
@@ -45,7 +49,8 @@ class _AppState extends State<App> {
   }
 }
 
-const Color seedColor = Colors.indigo;
+const Color seedColor = Colors.teal;
+
 final ThemeData darkTheme = ThemeData(
   brightness: .dark,
   useMaterial3: true,

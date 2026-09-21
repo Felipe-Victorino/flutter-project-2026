@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "610609808364",
+    "project_id": "todore-42b9b",
+    "storage_bucket": "todore-42b9b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610609808364:android:fc46c091dddc3d2ea376c9",
+        "android_client_info": {
+          "package_name": "com.example.flutter_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYPE2DIN5ytdlD85gKZJ8GcayeMVSQJ-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
