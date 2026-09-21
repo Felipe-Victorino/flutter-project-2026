@@ -48,13 +48,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         itemBuilder: (context, index) {
                           return CategoryCard(
                             category: snapshot.data![index],
-                            callback: () {
-                              setState(() {
-                                // This forces the parent widget to rebuild and
-                                // pull the fresh, updated categories from the database!
-                                _catList = service.getCategoryLists();
-                              });
-                            },
+                            callback: _refreshList,
                           );
                         },
                       ),
