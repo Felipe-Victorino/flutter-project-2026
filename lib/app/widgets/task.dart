@@ -85,7 +85,6 @@ class _TaskCardState extends State<TaskCard> {
                       ),
                     ),
                     onPressed: () {},
-                    onDeleted: () {},
                   );
                 }).toList(),
               ),
