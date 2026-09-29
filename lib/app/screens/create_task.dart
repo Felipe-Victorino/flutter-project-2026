@@ -70,6 +70,8 @@ class _NewTaskForm extends State<NewTaskForm> {
 
     task.categories = _selectedCategories;
 
+    _taskService.createNewTask(task);
+
     print(task.toString());
 
     Navigator.pop(context);
