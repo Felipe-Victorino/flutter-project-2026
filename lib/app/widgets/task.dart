@@ -25,7 +25,7 @@ class TaskCard extends StatefulWidget {
     required this.callback,
   });
 
-  final TaskTable task;
+  final TaskCloud task;
   final Function callback;
 
   @override
@@ -36,13 +36,11 @@ class _TaskCardState extends State<TaskCard> {
   double _isComplete = 1;
   String _taskButtonLabel = "Completar";
   IconData _taskButtonIcon = Icons.check_circle;
-  TaskService service = TaskService();
+  TaskServiceCloud service = TaskServiceCloud();
 
   @override
   void initState() {
     super.initState();
-
-    service.setTaskCategories(widget.task);
 
     if (widget.task.isCompleted == true) {
       _isComplete = 0;
@@ -69,7 +67,7 @@ class _TaskCardState extends State<TaskCard> {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               Divider(),
-              Text(widget.task.description),
+              Text(widget.task.title as String),
               Text("Date of creation: ${widget.task.createTime})"),
               Text("Date of end: ${widget.task.endTime}"),
               Wrap(
@@ -78,7 +76,7 @@ class _TaskCardState extends State<TaskCard> {
                 children: (widget.task.categories ?? []).map((category) {
                   return InputChip(
                     label: Text(
-                      category.name,
+                      category.name as String,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight(700),
@@ -121,7 +119,7 @@ class _TaskCardState extends State<TaskCard> {
                                 onPressed: () {
                                   setState(() {
                                     print("Removing");
-                                    service.deleteTask(widget.task);
+                                    service.deleteTask(widget.task.id);
                                     widget.callback();
                                   });
 

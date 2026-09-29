@@ -4,7 +4,7 @@ import 'package:flutter_project/app/screens/edit_category.dart';
 import 'package:flutter_project/app/service/category_service.dart';
 
 class CategoryCard extends StatefulWidget {
-  final CategoryTable category;
+  final CategoryCloud category;
   final Function callback;
 
   const CategoryCard({
@@ -18,7 +18,7 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  CategoryService service = CategoryService();
+  CategoryServiceCloud service = CategoryServiceCloud();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _CategoryCardState extends State<CategoryCard> {
           runAlignment: WrapAlignment.start,
           spacing: 12,
           children: [
-            Text(widget.category.name),
+            Text(widget.category.name as String),
             Divider(),
 
             Wrap(
@@ -76,7 +76,7 @@ class _CategoryCardState extends State<CategoryCard> {
                               onPressed: () {
                                 setState(() {
                                   print("Removing");
-                                  service.deleteCategory(widget.category);
+                                  service.deleteCategory(widget.category.id!);
                                   widget.callback();
                                 });
 
