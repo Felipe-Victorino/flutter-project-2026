@@ -4,6 +4,30 @@ import '../dao/category_dao.dart';
 import '../model/category.dart';
 import '../model/task.dart';
 
+class CategoryServiceCloud {
+  final CategoryDaoCloud _dao = CategoryDaoCloud();
+
+  Future<List<CategoryCloud?>> getAll() async {
+    return await _dao.getAll();
+  }
+
+  Future<String> createNewCategory(CategoryCloud category) async {
+    return await _dao.insert(category);
+  }
+
+  Future<CategoryCloud?> getById(String id) async {
+    return await _dao.getById(id);
+  }
+
+  Future<String> deleteCategory(String id) async {
+    return await _dao.remove(id);
+  }
+
+  Future<String> updateCategory(CategoryCloud category) async {
+    return await _dao.update(category);
+  }
+}
+
 class CategoryService {
   final CategoryDao _dao = CategoryDao();
   final TaskCategoryDao _tcdao = TaskCategoryDao();
