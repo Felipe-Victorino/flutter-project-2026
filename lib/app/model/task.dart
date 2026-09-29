@@ -1,4 +1,59 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/app/model/category.dart';
+
+// Objeto representatico do Firebase
+
+class TaskCloud {
+  final String? id;
+  final String? title;
+  final String? description;
+  bool? isCompleted;
+
+  List<CategoryCloud>? categories;
+  final String? createTime;
+  final String? endTime;
+
+  TaskCloud({
+    this.id,
+    required this.title,
+    required this.description,
+    required this.isCompleted,
+    required this.categories,
+    required this.createTime,
+    required this.endTime,
+  });
+
+  factory TaskCloud.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return TaskCloud(
+      id: snapshot.id,
+      title: data?['title'],
+      description: data?['description'],
+      isCompleted: data?['is_completed'],
+      categories: data?['categories'] is Iterable
+          ? List.from(data?['categories'])
+          : null,
+      createTime: data?['create_time'],
+      endTime: data?['end_time'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (isCompleted != null) 'is_completed': isCompleted,
+      if (categories != null) 'categories': categories,
+      if (createTime != null) 'create_time': createTime,
+      if (endTime != null) 'end_time': endTime,
+    };
+  }
+}
+
+// Objeto representativo do Sqlite
 
 class TaskTable {
   int? id;
@@ -44,6 +99,7 @@ class TaskTable {
     };
   }
 
+  @override
   String toString() {
     return '''
     Task(id:$id, 
