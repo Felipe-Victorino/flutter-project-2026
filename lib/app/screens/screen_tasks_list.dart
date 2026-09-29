@@ -13,20 +13,21 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  Future<List<TaskTable>?>? _tasklist;
-  final TaskService service = TaskService();
+  List<TaskCloud?>? _tasklist;
+  final TaskServiceCloud service = TaskServiceCloud();
 
-  void refreshList() {
+  void _refreshList() async {
+    List<TaskCloud?> result = await service.getIncompleteTasks();
     setState(() {
-      _tasklist = service.getIncompleteTasks();
+      _tasklist = result as List<TaskCloud?>?;
     });
+    print("refresh");
   }
 
   @override
   void initState() {
     super.initState();
-
-    refreshList();
+    _refreshList();
   }
 
   @override
@@ -46,28 +47,24 @@ class _TaskPageState extends State<TaskPage> {
                   builder: (context) => const NewTaskPage(),
                 ),
               );
-              refreshList();
+              _refreshList();
             },
 
             child: Text("Criar Tarefa nova"),
           ),
-          FutureBuilder(
-            future: _tasklist,
-            builder: (context, snapshot) {
-              return Expanded(
-                child: snapshot.data == null
-                    ? EmptyList()
-                    : ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return TaskCard.fromTask(
-                            task: snapshot.data![index],
-                            callback: refreshList,
-                          );
-                        },
-                      ),
-              );
-            },
+
+          Expanded(
+            child: _tasklist == null || _tasklist!.isEmpty
+                ? EmptyList()
+                : ListView.builder(
+                    itemCount: _tasklist!.length,
+                    itemBuilder: (context, index) {
+                      return TaskCard.fromTask(
+                        task: _tasklist![index]!,
+                        callback: _refreshList,
+                      );
+                    },
+                  ),
           ),
         ],
       ),
