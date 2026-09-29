@@ -1,8 +1,76 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../database/database.dart';
 import '../model/category.dart';
 import 'dao.dart';
+
+class CategoryDaoCloud {
+  Future<String> insert(CategoryCloud task) async {
+    final db = FirebaseFirestore.instance;
+    String id = await db
+        .collection("categories")
+        .add(task.toFirestore())
+        .then((documentSnapshot) => documentSnapshot.id);
+    return id;
+  }
+
+  Future<CategoryCloud?> getById(String id) async {
+    final db = FirebaseFirestore.instance;
+    final DocumentReference docref = db
+        .collection("categories")
+        .doc(id)
+        .withConverter<CategoryCloud>(
+          fromFirestore: CategoryCloud.fromFirestore,
+          toFirestore: (CategoryCloud task, _) => task.toFirestore(),
+        );
+
+    final snapshot = await docref.get();
+    return snapshot.data() as CategoryCloud?;
+  }
+
+  Future<List<CategoryCloud?>> getAll() async {
+    final db = FirebaseFirestore.instance;
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await db
+        .collection("categories")
+        .get();
+    final List<CategoryCloud?> result = snapshot.docs.map((doc) {
+      return CategoryCloud.fromFirestore(doc, null);
+    }).toList();
+
+    return result;
+  }
+
+  Future<String> update(CategoryCloud category) async {
+    final db = FirebaseFirestore.instance;
+    final DocumentReference docref = db
+        .collection("categories")
+        .doc(category.id)
+        .withConverter<CategoryCloud>(
+          fromFirestore: CategoryCloud.fromFirestore,
+          toFirestore: (CategoryCloud category, _) => category.toFirestore(),
+        );
+
+    docref.update(category.toFirestore());
+
+    return docref.id;
+  }
+
+  Future<String> remove(String id) async {
+    final db = FirebaseFirestore.instance;
+    final DocumentReference docref = db
+        .collection("categories")
+        .doc(id)
+        .withConverter<CategoryCloud>(
+          fromFirestore: CategoryCloud.fromFirestore,
+          toFirestore: (CategoryCloud task, _) => task.toFirestore(),
+        );
+
+    docref.delete();
+
+    return docref.id;
+  }
+}
 
 class CategoryDao extends Dao<CategoryTable> {
   @override
