@@ -14,12 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<TaskTable?>? urgentTask;
-  final TaskService service = TaskService();
+  Future<TaskCloud?>? urgentTask;
+  final TaskServiceCloud service = TaskServiceCloud();
 
   void _refreshList() {
     setState(() {
-      urgentTask = service.getTaskCloserToExpire();
+      urgentTask = service.getClosestToExpire();
     });
   }
 
