@@ -6,7 +6,7 @@ import '../model/category.dart';
 class EditCategoryPage extends StatefulWidget {
   const EditCategoryPage({super.key, required this.category});
 
-  final CategoryTable category;
+  final CategoryCloud category;
 
   @override
   State<StatefulWidget> createState() => _EditCategoryState();
@@ -15,7 +15,7 @@ class EditCategoryPage extends StatefulWidget {
 class _EditCategoryState extends State<EditCategoryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final CategoryService service = CategoryService();
+  final CategoryServiceCloud service = CategoryServiceCloud();
 
   late String name;
 
@@ -37,7 +37,11 @@ class _EditCategoryState extends State<EditCategoryPage> {
   void _submit() async {
     if (_formKey.currentState!.validate()) {
       name = txtcontroller.text;
-      CategoryTable cat = CategoryTable(id: widget.category.id, name: name);
+      CategoryCloud cat = CategoryCloud(
+        id: widget.category.id,
+        name: name,
+        color: '',
+      );
       await service.updateCategory(cat);
       Navigator.pop(context);
     }
