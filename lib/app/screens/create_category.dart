@@ -22,8 +22,8 @@ class NewCategory extends StatefulWidget {
 
 class _NewCategoryState extends State<NewCategory> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late final CategoryTable _category;
-  final CategoryService service = CategoryService();
+  late final CategoryCloud _category;
+  final CategoryServiceCloud service = CategoryServiceCloud();
 
   late String name;
 
@@ -41,7 +41,7 @@ class _NewCategoryState extends State<NewCategory> {
       print(name);
     }
     if (_formKey.currentState!.validate()) {
-      _category = CategoryTable(name: name);
+      _category = CategoryCloud(name: name, color: '');
       service.createNewCategory(_category);
       Navigator.pop(context);
     }

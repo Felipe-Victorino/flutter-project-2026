@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/app/dao/task_category.dart';
 import 'package:flutter_project/app/service/category_service.dart';
 import 'package:flutter_project/app/service/task_service.dart';
 
@@ -30,9 +29,8 @@ class _NewTaskForm extends State<NewTaskForm> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
 
-  final TaskService _taskService = TaskService();
-  final CategoryService _catService = CategoryService();
-  final TaskCategoryDao _tcdao = TaskCategoryDao();
+  final TaskServiceCloud _taskService = TaskServiceCloud();
+  final CategoryServiceCloud _catService = CategoryServiceCloud();
 
   late String _title;
   late String _description;
@@ -40,13 +38,13 @@ class _NewTaskForm extends State<NewTaskForm> {
   final DateTime _createTime = DateTime.now();
   late DateTime _endTime;
 
-  late Future<List<CategoryTable>?> _categoriesFuture;
-  final List<CategoryTable> _selectedCategories = List.empty(growable: true);
+  late Future<List<CategoryCloud?>?> _categoriesFuture;
+  final List<CategoryCloud> _selectedCategories = List.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
-    _categoriesFuture = _catService.getCategoryLists();
+    _categoriesFuture = _catService.getAll();
   }
 
   @override
@@ -61,21 +59,16 @@ class _NewTaskForm extends State<NewTaskForm> {
     _title = namecontroller.text;
     _description = descriptioncontroller.text;
 
-    TaskTable task = TaskTable(
+    TaskCloud task = TaskCloud(
       title: _title,
       description: _description,
       isCompleted: _isCompleted,
       createTime: _createTime.toIso8601String(),
       endTime: _endTime.toIso8601String(),
+      categories: [],
     );
 
-    int taskId = await _taskService.createNewTask(task);
-
     task.categories = _selectedCategories;
-    for (CategoryTable ct in _selectedCategories) {
-      await _tcdao.linkCategoryToTask(taskId, ct);
-      print("Link ${ct.toString()} to task ${task.id}");
-    }
 
     print(task.toString());
 
@@ -147,10 +140,10 @@ class _NewTaskForm extends State<NewTaskForm> {
                   children: snapshot.data != null
                       ? snapshot.data!
                             .map<Widget>(
-                              (CategoryTable cat) => FilterChip(
-                                label: Text(cat.name),
+                              (CategoryCloud? cat) => FilterChip(
+                                label: Text(cat!.name!),
                                 selected: _selectedCategories.any(
-                                  (selectedCat) => cat.id == selectedCat.id,
+                                  (selectedCat) => cat.id! == selectedCat.id,
                                 ),
                                 onSelected: (bool selected) {
                                   print(selected.toString());
@@ -262,7 +255,7 @@ class _NewTaskForm extends State<NewTaskForm> {
                             child: ListBody(
                               children: <Widget>[
                                 Text(
-                                  'You are cancelling the crating of this task, this action will undo all progress and cannot be recovered,',
+                                  'You are cancelling the creating of this task, this action will undo all progress and cannot be recovered,',
                                 ),
                                 Text('Are you sure you want to return?'),
                               ],
