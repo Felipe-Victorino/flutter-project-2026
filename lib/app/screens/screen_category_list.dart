@@ -13,18 +13,19 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  Future<List<CategoryTable>?>? _catList;
-  final CategoryService service = CategoryService();
+  Future<List<CategoryCloud?>>? _catList;
+  final CategoryServiceCloud service = CategoryServiceCloud();
 
   void _refreshList() {
     setState(() {
-      _catList = service.getCategoryLists();
+      _catList = service.getAll();
+      print(_catList);
+      print('Refresh');
     });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _refreshList();
   }
@@ -47,7 +48,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           return CategoryCard(
-                            category: snapshot.data![index],
+                            category: snapshot.data![index]!,
                             callback: _refreshList,
                           );
                         },

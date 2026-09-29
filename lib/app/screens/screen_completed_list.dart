@@ -12,20 +12,21 @@ class CompletedPage extends StatefulWidget {
 }
 
 class _CompletedPageState extends State<CompletedPage> {
-  Future<List<TaskTable>?>? _tasklist;
-  final TaskService service = TaskService();
+  List<TaskCloud?>? _tasklist;
+  final TaskServiceCloud service = TaskServiceCloud();
 
-  void refreshList() {
+  void _refreshList() async {
+    List<TaskCloud?> result = await service.getIncompleteTasks();
     setState(() {
-      _tasklist = service.getCompleteTasks();
+      _tasklist = result as List<TaskCloud?>?;
     });
+    print("refresh");
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    refreshList();
+    _refreshList();
   }
 
   @override
@@ -37,23 +38,18 @@ class _CompletedPageState extends State<CompletedPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          FutureBuilder(
-            future: _tasklist,
-            builder: (context, snapshot) {
-              return Expanded(
-                child: snapshot.data == null
-                    ? EmptyList()
-                    : ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return TaskCard.fromTask(
-                            task: snapshot.data![index],
-                            callback: refreshList,
-                          );
-                        },
-                      ),
-              );
-            },
+          Expanded(
+            child: _tasklist == null || _tasklist!.isEmpty
+                ? EmptyList()
+                : ListView.builder(
+                    itemCount: _tasklist!.length,
+                    itemBuilder: (context, index) {
+                      return TaskCard.fromTask(
+                        task: _tasklist![index]!,
+                        callback: _refreshList,
+                      );
+                    },
+                  ),
           ),
         ],
       ),
