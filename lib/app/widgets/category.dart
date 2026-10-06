@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/app/model/category.dart';
-import 'package:flutter_project/app/screens/edit_category.dart';
+import 'package:flutter_project/app/screens/edit/edit_category.dart';
 import 'package:flutter_project/app/service/category_service.dart';
 
 class CategoryCard extends StatefulWidget {

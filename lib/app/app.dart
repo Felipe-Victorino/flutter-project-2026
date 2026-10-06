@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/app/screens/create_task.dart';
-import 'package:flutter_project/app/screens/screen_category_list.dart';
-import 'package:flutter_project/app/screens/screen_completed_list.dart';
+import 'package:flutter_project/app/screens/create/create_task.dart';
+import 'package:flutter_project/app/screens/lists/screen_category_list.dart';
+import 'package:flutter_project/app/screens/lists/screen_completed_list.dart';
 
+import 'screens/lists/screen_tasks_list.dart';
 import 'screens/screen_home.dart';
-import 'screens/screen_settings.dart';
-import 'screens/screen_tasks_list.dart';
+import 'screens/settings/screen_settings.dart';
 import 'widgets/tile_logo.dart';
 
 class Home extends StatefulWidget {
