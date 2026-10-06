@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/app/screens/auth/login.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'app/app.dart';
@@ -33,6 +35,18 @@ class _AppState extends State<App> {
     });
   }
 
+  bool _isLoggedIn() {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+
+    print(user != null);
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,21 +58,54 @@ class _AppState extends State<App> {
       darkTheme: darkTheme,
       themeMode: _theme,
 
-      home: const Home(),
+      home: _isLoggedIn() ? Home() : LoginPage(),
     );
   }
 }
 
 const Color seedColor = Colors.teal;
 
-final ThemeData darkTheme = ThemeData(
-  brightness: .dark,
-  useMaterial3: true,
-  colorScheme: .fromSeed(seedColor: seedColor, brightness: .dark),
+final ColorScheme lightColorScheme = ColorScheme.fromSeed(
+  seedColor: seedColor,
+  brightness: Brightness.light,
 );
 
+final ColorScheme darkColorScheme = ColorScheme.fromSeed(
+  seedColor: seedColor,
+  brightness: Brightness.dark,
+);
+
+// 2. Aplicamos os esquemas e customizamos os botões globalmente
 final ThemeData lightTheme = ThemeData(
-  brightness: .light,
   useMaterial3: true,
-  colorScheme: .fromSeed(seedColor: seedColor, brightness: .light),
+  colorScheme: lightColorScheme,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: lightColorScheme.primary,
+      foregroundColor: lightColorScheme.onPrimary,
+    ),
+  ),
+  filledButtonTheme: FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      backgroundColor: lightColorScheme.primary,
+      foregroundColor: lightColorScheme.onPrimary,
+    ),
+  ),
+);
+
+final ThemeData darkTheme = ThemeData(
+  useMaterial3: true,
+  colorScheme: darkColorScheme,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: darkColorScheme.primary,
+      foregroundColor: darkColorScheme.onPrimary,
+    ),
+  ),
+  filledButtonTheme: FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      backgroundColor: darkColorScheme.primary,
+      foregroundColor: darkColorScheme.onPrimary,
+    ),
+  ),
 );
